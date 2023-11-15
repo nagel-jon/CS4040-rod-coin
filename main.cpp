@@ -23,36 +23,37 @@ Must cut down these lengths to a combination of lenghts in table
 
 int main() {
 
-  vector<int> price = {1, 5, 9, 17, 20, 30, 36, 48}; // Sample price vector
+//   vector<int> price = {1, 5, 9, 17, 20, 30, 36, 48}; // Sample price vector
 
-  vector<int> lengths = {1, 2, 4, 6, 8, 10, 12, 16}; // Sample lengths vector
+//   vector<int> lengths = {1, 2, 4, 6, 8, 10, 12, 16}; // Sample lengths vector
 
-  vector<int> tests = {4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096};
+//   vector<int> tests = {4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096};
 
-  for (int i = 0; i < tests.size(); ++i) {
-    auto startTime = std::chrono::high_resolution_clock::now();
-    int result = sparse_cut(price, lengths, tests[i]);
-    auto endTime = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(
-        endTime - startTime);
+//   for (int i = 0; i < tests.size(); ++i) {
+//     auto startTime = std::chrono::high_resolution_clock::now();
+//     int result = sparse_cut(price, lengths, tests[i]);
+//     auto endTime = std::chrono::high_resolution_clock::now();
+//     auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(
+//         endTime - startTime);
 
-    std::cout << "Time taken by sparse_cut for input " << tests[i] << ": "
-              << duration.count() << " nanoseconds." << std::endl;
-    std::cout << "Sparse Cut Result For: " << tests[i] << " -> " << result
-              << std::endl;
-  }
+//     std::cout << "Time taken by sparse_cut for input " << tests[i] << ": "
+//               << duration.count() << " nanoseconds." << std::endl;
+//     std::cout << "Sparse Cut Result For: " << tests[i] << " -> " << result
+//               << std::endl;
+//   }
+    // coin change
 
-    int x = 10;
-    int coins[] = {1, 2, 5};
-    int num_coins = sizeof(coins) / sizeof(coins[0]);
+    int us_coins[] = {1, 5, 10, 25, 50, 100, 200, 500, 1000, 2000};
 
-    std::vector<std::vector<int>> combinations;
-    int num_combinations = getNumCombinations(x, coins, num_coins, combinations);
+    vector <int> us_experiments = {10, 50, 100, 500, 1000};
 
-    std::cout << "Number of Unique Combinations: " << num_combinations << "\n";
 
-    if (num_combinations > 0) {
-        printCombinations(x, coins, num_coins, combinations);
+
+    int num_us_coins = sizeof(us_coins) / sizeof(us_coins[0]);
+    
+    for(int i = 0; i < us_experiments.size(); ++i){
+
+    displayCoinCombinations(us_experiments[i], us_coins, num_us_coins);
     }
 
   return 0;

@@ -4,56 +4,62 @@
 #define COINCHANGE_H
 
 
-int getNumCombinations(int x, int coins[], int num_coins, std::vector<std::vector<int>>& combinations) {
-    // Initialize a 2D array to store combinations
-    combinations.resize(x + 1, std::vector<int>(num_coins, 0));
+// Function to get all combinations of coins that can make change for the target amount 'x'
+std::vector<std::vector<std::vector<int>>> getWaysWithCoins(int x, int coins[], int num_coins) {
+    // Initialize a 3D vector 'ways' to store the coin combinations for each amount from 0 to x
+    std::vector<std::vector<std::vector<int>>> ways(x + 1, std::vector<std::vector<int>>());
 
-    // Base case: There is one way to make change for 0
-    for (int i = 0; i < num_coins; ++i) {
-        combinations[0][i] = 1;
-    }
+    // Base case: there is one way to make change for 0 (no coins)
+    ways[0].push_back(std::vector<int>());
 
-    // Fill the combinations array using the dynamic programming approach
+    // Iterate through each coin denomination
     for (int i = 0; i < num_coins; ++i) {
+        // Get the value of the current coin
         int coin_value = coins[i];
+
+        // Iterate through amounts from 'coin_value' to 'x'
         for (int j = coin_value; j <= x; ++j) {
-            combinations[j][i] = combinations[j - coin_value][i] + ((i > 0) ? combinations[j][i - 1] : 0);
+            // Iterate through each combination of coins that can make change for 'j - coin_value'
+            for (auto combination : ways[j - coin_value]) {
+                // Add the current coin to the combination
+                combination.push_back(coin_value);
+                // Add the new combination to the ways for the current amount 'j'
+                ways[j].push_back(combination);
+            }
         }
     }
 
-    // The result is stored in the bottom-right cell of the combinations array
-    return combinations[x][num_coins - 1];
+    // Return the 3D vector containing all coin combinations for each amount from 0 to x
+    return ways;
 }
 
-// Function to print all unique combinations
-void printCombinations(int x, int coins[], int num_coins, std::vector<std::vector<int>>& combinations) {
-    // Initialize vectors to store the current combination
-    std::vector<int> current_combination;
-    
-    // Start from the bottom-right cell of the combinations array
-    int i = x, j = num_coins - 1;
+// Function to call getWaysWithCoins and display the number of results and execution time
+void displayCoinCombinations(int x, int coins[], int num_coins) {
+    // Record start time
+    auto start_time = std::chrono::high_resolution_clock::now();
 
-    // Traverse the combinations array to reconstruct the solution
-    while (i > 0 && j >= 0) {
-        if (j > 0 && combinations[i][j] == combinations[i][j - 1]) {
-            // Move to the previous coin (skip duplicates)
-            --j;
-        } else {
-            // Include the current coin in the combination
-            current_combination.push_back(coins[j]);
-            i -= coins[j];
-        }
-    }
+    // Get all coin combinations for making change for the target amount 'x'
+    std::vector<std::vector<std::vector<int>>> result = getWaysWithCoins(x, coins, num_coins);
 
-    // Print the unique combinations
-    std::cout << "Unique Combinations:\n";
-    for (int k = current_combination.size() - 1; k >= 0; --k) {
-        std::cout << current_combination[k] << " ";
-    }
-    std::cout << "\n";
+    // Record end time
+    auto end_time = std::chrono::high_resolution_clock::now();
+
+    // Calculate and display the execution time
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+    std::cout << "Execution Time: " << duration.count() << " microseconds\n";
+
+    // Display the number of coin combinations for the target amount 'x'
+    std::cout << "Number of coin combinations for making change for " << x << ": " << result[x].size() << std::endl;
+
+    // Display all combinations
+    // std::cout << "All combinations:\n";
+    // for (auto combination : result[x]) {
+    //     for (auto coin : combination) {
+    //         std::cout << coin << " ";
+    //     }
+    //     std::cout << std::endl;
+    // }
 }
-
-
 
 
 #endif
