@@ -61,5 +61,20 @@ void displayCoinCombinations(int x, int coins[], int num_coins) {
     // }
 }
 
+int original_coin_change(int x, int coins[], int num_coins){
+    std::vector<int> ways(x + 1, 0);
+    ways[0] = 1;
+
+    for(int i = 0; i < num_coins; ++i){
+        for(int j = coins[i]; j <= x; ++j){
+            ways[j] += ways[j - coins[i]];
+        }
+    }
+    return ways[x];
+
+
+
+}
+
 
 #endif
