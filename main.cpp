@@ -107,32 +107,26 @@ int main() {
   }
   cout << endl;
 
-
   cout << "Reconstructing Coin Change Tests ---------------" << endl << endl;
 
-  int reconstruction_tests[] {10, 25, 50, 100, 200, 500};
+  int reconstruction_tests[]{10, 25, 50};
 
-  for (int i = 0; i < sizeof(reconstruction_tests) / sizeof(reconstruction_tests[0]); ++i) {
+  for (int i = 0;
+       i < sizeof(reconstruction_tests) / sizeof(reconstruction_tests[0]);
+       ++i) {
+    cout << "Reconstructing for " << reconstruction_tests[i] << ": " << endl;
     auto startTime = std::chrono::high_resolution_clock::now();
 
-      displayCoinCombinations(reconstruction_tests[i], us_coins, num_us_coins);
-
+    displayCoinCombinations(reconstruction_tests[i], us_coins, num_us_coins);
 
     auto endTime = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(
         endTime - startTime);
 
-    // Print the result and the time taken for each test
-    std::cout << "Experiment input: " << reconstruction_tests[i] << std::endl;
-    std::cout << "Result: ";
-    for (int j = 0; j < result.size(); ++j) {
-      std::cout << result[j] << " ";
-    }
-    std::cout << std::endl;
+    std::cout << "Experiment input: " << coin_experiments[i] << std::endl;
     std::cout << "Time taken: " << duration.count() << " nanoseconds"
               << std::endl;
-  }  
-
+  }
 
   return 0;
 }

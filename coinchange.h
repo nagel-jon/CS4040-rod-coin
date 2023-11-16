@@ -52,13 +52,13 @@ void displayCoinCombinations(int x, int coins[], int num_coins) {
     std::cout << "Number of coin combinations for making change for " << x << ": " << result[x].size() << std::endl;
 
     // Display all combinations
-    // std::cout << "All combinations:\n";
-    // for (auto combination : result[x]) {
-    //     for (auto coin : combination) {
-    //         std::cout << coin << " ";
-    //     }
-    //     std::cout << std::endl;
-    // }
+    std::cout << "All combinations:\n";
+    for (auto combination : result[x]) {
+        for (auto coin : combination) {
+            std::cout << coin << " ";
+        }
+        std::cout << std::endl;
+    }
 }
 
 int original_coin_change(int x, int coins[], int num_coins){
