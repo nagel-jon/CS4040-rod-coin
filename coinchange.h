@@ -36,7 +36,6 @@ std::vector<std::vector<std::vector<int>>> getWaysWithCoins(int x, int coins[], 
 // Function to call getWaysWithCoins and display the number of results and execution time
 void displayCoinCombinations(int x, int coins[], int num_coins) {
     // Record start time
-    auto start_time = std::chrono::high_resolution_clock::now();
 
     // Get all coin combinations for making change for the target amount 'x'
     std::vector<std::vector<std::vector<int>>> result = getWaysWithCoins(x, coins, num_coins);
@@ -45,8 +44,7 @@ void displayCoinCombinations(int x, int coins[], int num_coins) {
     auto end_time = std::chrono::high_resolution_clock::now();
 
     // Calculate and display the execution time
-    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
-    std::cout << "Execution Time: " << duration.count() << " microseconds\n";
+
 
     // Display the number of coin combinations for the target amount 'x'
     std::cout << "Number of coin combinations for making change for " << x << ": " << result[x].size() << std::endl;

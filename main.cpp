@@ -107,9 +107,9 @@ int main() {
   }
   cout << endl;
 
-  cout << "Reconstructing Coin Change Tests ---------------" << endl << endl;
+  cout << "Reconstructing US Coin Change Tests ---------------" << endl << endl;
 
-  int reconstruction_tests[]{10, 25, 50};
+  int reconstruction_tests[]{10, 25, 50, 100, 200, 500};
 
   for (int i = 0;
        i < sizeof(reconstruction_tests) / sizeof(reconstruction_tests[0]);
@@ -123,7 +123,29 @@ int main() {
     auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(
         endTime - startTime);
 
-    std::cout << "Experiment input: " << coin_experiments[i] << std::endl;
+    std::cout << "Experiment input: " << reconstruction_tests[i] << std::endl;
+    std::cout << "Time taken: " << duration.count() << " nanoseconds"
+              << std::endl;
+  }
+
+    cout << endl;
+
+  cout << "Reconstructing Wizard Coin Change Tests ---------------" << endl << endl;
+
+
+  for (int i = 0;
+       i < sizeof(reconstruction_tests) / sizeof(reconstruction_tests[0]);
+       ++i) {
+    cout << "Reconstructing for " << reconstruction_tests[i] << ": " << endl;
+    auto startTime = std::chrono::high_resolution_clock::now();
+
+    displayCoinCombinations(reconstruction_tests[i], wizard_coins, num_wizard_coins);
+
+    auto endTime = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(
+        endTime - startTime);
+
+    std::cout << "Experiment input: " << reconstruction_tests[i] << std::endl;
     std::cout << "Time taken: " << duration.count() << " nanoseconds"
               << std::endl;
   }

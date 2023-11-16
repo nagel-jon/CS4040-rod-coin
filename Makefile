@@ -14,6 +14,7 @@ HDRS = file1.h file2.h
 # Target executable
 TARGET = a.out
 
+# Default target
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
@@ -22,5 +23,10 @@ $(TARGET): $(OBJS)
 %.o: %.cpp $(HDRS)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
+# Compile and run the code
+run: $(TARGET)
+	./$(TARGET)
+
+# Clean up object files and executable
 clean:
 	rm -f $(OBJS) $(TARGET)
